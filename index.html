@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080704">
+  <title>ORA CASINO — Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand"><div class="crown">♛</div><div class="brand-name">ORACASINO</div></div>
+    <div class="heading"><h1>ADMIN DASHBOARD</h1><div class="subtitle">SETTING JACKPOT MEMBER</div></div>
+    <div class="top-meta">
+      <div class="clock"><div><i class="fa-regular fa-calendar-days"></i><span id="dateNow">--</span></div><div><i class="fa-regular fa-clock"></i><span id="timeNow">--:--:--</span></div></div>
+      <button class="admin-chip" id="adminMenu"><span class="admin-crown">♛</span><span><b id="adminNameTop">Admin</b><small><i></i> Online</small></span><i class="fa-solid fa-chevron-down"></i></button>
+    </div>
+  </header>
+
+  <div class="workspace">
+    <aside class="sidebar">
+      <nav>
+        <button class="nav-link active" data-page="dashboard"><i class="fa-solid fa-house"></i><span>Dashboard</span></button>
+        <button class="nav-link" data-page="setting"><i class="fa-regular fa-gem"></i><span>Setting Jackpot</span></button>
+        <button class="nav-link" data-page="members"><i class="fa-solid fa-users"></i><span>Data Member</span></button>
+        <button class="nav-link" data-page="history"><i class="fa-solid fa-trophy"></i><span>Riwayat Jackpot</span></button>
+        <button class="nav-link" data-page="settings"><i class="fa-solid fa-gear"></i><span>Pengaturan</span></button>
+        <button class="nav-link" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></button>
+      </nav>
+      <div class="sidebar-promo"><div class="promo-crown">♛</div><b>ORACASINO</b><span>— PLAY BIG WIN BIG —</span><div class="ornament">✧　♜　✧</div></div>
+    </aside>
+
+    <main class="main-content">
+      <section class="page active" id="page-dashboard">
+        <section class="panel form-panel">
+          <div class="panel-title"><i class="fa-solid fa-thumbtack"></i> Ajukan Member Terima Jackpot</div>
+          <form id="memberForm">
+            <div class="form-grid">
+              <label><span><i class="fa-brands fa-whatsapp"></i> Nomor WhatsApp</span><input id="phoneInput" type="text" placeholder="Contoh: 0812-3456-7890" autocomplete="off" required></label>
+              <label><span><i class="fa-regular fa-gem"></i> Jenis Jackpot</span><select id="typeInput"><option>Jackpot Utama</option><option>Jackpot Harian</option><option>Jackpot Mingguan</option><option>Jackpot Bulanan</option></select></label>
+              <label><span><i class="fa-solid fa-coins"></i> Nominal Deposit</span><input id="amountInput" inputmode="numeric" placeholder="Rp 0" value="0"></label>
+              <label><span><i class="fa-solid fa-chart-column"></i> Status</span><select id="statusInput"><option>MENUNGGU DEPOSIT</option><option>BERHASIL</option><option>PROSES</option><option>DITOLAK</option></select></label>
+            </div>
+            <button class="gold-button submit-button" type="submit"><i class="fa-solid fa-paper-plane"></i> SIMPAN / AJUKAN</button>
+          </form>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="panel-title"><i class="fa-solid fa-list"></i> Daftar Member Jackpot</div>
+          <div class="table-tools">
+            <input id="searchInput" type="search" placeholder="Cari nomor WhatsApp...">
+            <select id="filterType"><option value="">Semua Jackpot</option><option>Jackpot Utama</option><option>Jackpot Harian</option><option>Jackpot Mingguan</option><option>Jackpot Bulanan</option></select>
+            <select id="filterStatus"><option value="">Semua Status</option><option>MENUNGGU DEPOSIT</option><option>BERHASIL</option><option>PROSES</option><option>DITOLAK</option></select>
+          </div>
+          <div class="table-wrap">
+            <table><thead><tr><th>No</th><th>WhatsApp</th><th>Jenis Jackpot</th><th>Nominal Deposit</th><th>Status</th><th>Tanggal &amp; Waktu</th><th>Aksi</th></tr></thead><tbody id="memberRows"></tbody></table>
+          </div>
+          <div class="table-foot"><span id="recordCount">0 member</span><div class="pagination"><button id="prevPage" aria-label="Sebelumnya">‹</button><span id="pageInfo">1 / 1</span><button id="nextPage" aria-label="Berikutnya">›</button></div></div>
+        </section>
+
+        <section class="warning-panel" id="warningPanel">
+          <div class="warning-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div class="warning-copy"><b>Perhatian!</b><div id="warningText">Tidak ada member yang menunggu deposit sementara room berjalan.</div></div>
+          <button class="gold-button room-button" id="viewRoomBtn"><i class="fa-brands fa-whatsapp"></i> Hubungi WhatsApp</button>
+        </section>
+      </section>
+
+      <section class="page" id="page-setting">
+        <section class="panel">
+          <div class="panel-title"><i class="fa-regular fa-gem"></i> Setting Jackpot</div>
+          <div class="page-intro">Kelola pengajuan jackpot dan status deposit maupun room secara terpisah melalui daftar member di bawah ini.</div>
+          <div class="quick-stats" id="statsCards"></div>
+          <button class="gold-button" id="goDashboard">Buka Form Pengajuan</button>
+        </section>
+      </section>
+
+      <section class="page" id="page-members">
+        <section class="panel">
+          <div class="panel-title"><i class="fa-solid fa-users"></i> Data Member</div>
+          <div class="page-intro">Seluruh member yang pernah diajukan untuk menerima jackpot.</div>
+          <div class="table-wrap"><table><thead><tr><th>No</th><th>WhatsApp</th><th>Jenis Jackpot</th><th>Deposit</th><th>Status</th><th>Tanggal</th><th>Aksi</th></tr></thead><tbody id="allMemberRows"></tbody></table></div>
+        </section>
+      </section>
+
+      <section class="page" id="page-history">
+        <section class="panel">
+          <div class="panel-title"><i class="fa-solid fa-trophy"></i> Riwayat Jackpot</div>
+          <div class="page-intro">Catatan aktivitas dan perubahan status member.</div>
+          <div class="table-wrap"><table><thead><tr><th>No</th><th>WhatsApp</th><th>Jenis Jackpot</th><th>Deposit</th><th>Status Pengajuan</th><th>Status Room</th><th>Aktivitas Terakhir</th></tr></thead><tbody id="historyRows"></tbody></table></div>
+        </section>
+      </section>
+
+      <section class="page" id="page-settings">
+        <section class="panel">
+          <div class="panel-title"><i class="fa-solid fa-gear"></i> Pengaturan Dashboard</div>
+          <form id="settingsForm" class="settings-form">
+            <label>Nama Admin<input id="adminNameInput" value="Admin"></label>
+            <label>Nama Website<input id="siteNameInput" value="ORACASINO"></label>
+            <label class="check-setting"><input id="notifySetting" type="checkbox" checked> Tampilkan peringatan member belum deposit</label>
+            <button class="gold-button" type="submit">Simpan Pengaturan</button>
+          </form>
+        </section>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <div class="modal-head"><h2 id="modalTitle">Detail Member</h2><button id="closeModal" class="close-btn">×</button></div>
+    <form id="editForm">
+      <input type="hidden" id="editId">
+      <label>Nomor WhatsApp<input id="editPhone" required></label>
+      <label>Jenis Jackpot<select id="editType"><option>Jackpot Utama</option><option>Jackpot Harian</option><option>Jackpot Mingguan</option><option>Jackpot Bulanan</option></select></label>
+      <label>Nominal Deposit (Rp)<input id="editAmount" inputmode="numeric"></label>
+      <label>Status Pengajuan<select id="editStatus"><option>MENUNGGU DEPOSIT</option><option>BERHASIL</option><option>PROSES</option><option>DITOLAK</option></select></label>
+      <label>Status Deposit<select id="editDeposit"><option>Belum Deposit</option><option>Sudah Deposit</option></select></label>
+      <label>Status Room Jackpot<select id="editRoom"><option>Berjalan</option><option>Belum Berjalan</option><option>Selesai</option></select></label>
+      <div class="modal-actions"><button type="button" class="dark-button" id="cancelEdit">Batal</button><button class="gold-button" type="submit">Simpan Perubahan</button></div>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+      </html>
